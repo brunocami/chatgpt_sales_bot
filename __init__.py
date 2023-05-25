@@ -30,9 +30,11 @@ def webhook_whatsapp():
     #EXTRAEMOS EL TIEMPO DE WHATSAPP DEL ARRAY
     timestamp=data['entry'][0]['changes'][0]['value']['messages'][0]['timestamp']
     #SI HAY UN MENSAJE
+
     procesarMensaje(mensaje,idWA,timestamp,telefonoCliente)
+    print(data)
 
 
-#INICIAMSO FLASK
+#INICIAMOS FLASK
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run(debug=True, port=8000)

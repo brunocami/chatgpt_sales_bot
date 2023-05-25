@@ -29,30 +29,23 @@ def procesarMensaje(mensaje,idWA,timestamp,telefonoCliente):
         # IMPORTAMOS FUNCION PARA CONECTARSE A CHAT GPT
         response = collectTrainData(mensaje, telefonoCliente)
 
-        # ALMACENO LA RESPUESTA DE CHATGPT EN UNA VARIABLE
-        # chatgpt_response = response.choices[0].message.content
-
         cantidad,=cursor.fetchone()
         cantidad=str(cantidad)
         cantidad=int(cantidad)
 
-        print(response)
+        if cantidad==0 :
 
-        # if cantidad==0 :
+            sql = ("INSERT INTO registro_nuevos"+ 
+            "(prompt,completion,id_wa      ,timestamp_wa   ,telefono_wa) VALUES "+
+            "('"+mensaje+"'   ,'"+response+"','"+idWA+"' ,'"+timestamp+"','"+telefonoCliente+"');")
+            cursor.execute(sql)
+            db.commit()
 
-        #     sql = ("INSERT INTO registro_nuevos"+ 
-        #     "(mensaje_recibido,mensaje_enviado,id_wa      ,timestamp_wa   ,telefono_wa) VALUES "+
-        #     "('"+mensaje+"'   ,'"+response+"','"+idWA+"' ,'"+timestamp+"','"+telefonoCliente+"');")
-        #     cursor.execute(sql)
-        #     db.commit()
+            # CERRAMOS EL CURSOR Y LA CONEXION CON LA BASE DE DATOS
+            cursor.close()
+            db.close()
 
-        #     # CERRAMOS EL CURSOR Y LA CONEXION CON LA BASE DE DATOS
-        #     cursor.close()
-        #     db.close()
+            enviar(telefonoCliente,response,Config.WHATSAPP.TOKEN,Config.WHATSAPP.ID_NUMERO_TELEFONO)
 
-        #     enviar(telefonoCliente,response,Config.WHATSAPP.TOKEN,Config.WHATSAPP.ID_NUMERO_TELEFONO)
-
-        # #RETORNAMOS EL STATUS EN UN JSON
-        # return jsonify({"status": "success"}, 200)
-
-procesarMensaje('donde quedan las flores?', '23123123132', 123123, '5491158487444')
+        #RETORNAMOS EL STATUS EN UN JSON
+        return jsonify({"status": "success"}, 200)
