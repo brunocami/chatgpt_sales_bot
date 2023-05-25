@@ -2,7 +2,7 @@
 from flask import jsonify
 import mysql.connector
 from config import Config
-from chatgpt import chatgpt_conection
+from db_utils import collectTrainData
 import time
 
 from heyoo import WhatsApp
@@ -22,34 +22,37 @@ def procesarMensaje(mensaje,idWA,timestamp,telefonoCliente):
         db = mysql.connector.connect(
             host = Config.DATABASE.HOST,
             user = Config.DATABASE.USER,
-            password = Config.DATABASE.PASSWORD,
             database=Config.DATABASE.DATABASE
         )
         cursor = db.cursor()
         cursor.execute("SELECT count(id) AS cantidad FROM registro_nuevos WHERE id_wa='" + idWA + "';")
         # IMPORTAMOS FUNCION PARA CONECTARSE A CHAT GPT
-        response = chatgpt_conection(mensaje, telefonoCliente)
+        response = collectTrainData(mensaje, telefonoCliente)
 
         # ALMACENO LA RESPUESTA DE CHATGPT EN UNA VARIABLE
-        chatgpt_response = response.choices[0].message.content
+        # chatgpt_response = response.choices[0].message.content
 
         cantidad,=cursor.fetchone()
         cantidad=str(cantidad)
         cantidad=int(cantidad)
 
-        if cantidad==0 :
+        print(response)
 
-            sql = ("INSERT INTO registro_nuevos"+ 
-            "(mensaje_recibido,mensaje_enviado,id_wa      ,timestamp_wa   ,telefono_wa) VALUES "+
-            "('"+mensaje+"'   ,'"+chatgpt_response+"','"+idWA+"' ,'"+timestamp+"','"+telefonoCliente+"');")
-            cursor.execute(sql)
-            db.commit()
+        # if cantidad==0 :
 
-            # CERRAMOS EL CURSOR Y LA CONEXION CON LA BASE DE DATOS
-            cursor.close()
-            db.close()
+        #     sql = ("INSERT INTO registro_nuevos"+ 
+        #     "(mensaje_recibido,mensaje_enviado,id_wa      ,timestamp_wa   ,telefono_wa) VALUES "+
+        #     "('"+mensaje+"'   ,'"+response+"','"+idWA+"' ,'"+timestamp+"','"+telefonoCliente+"');")
+        #     cursor.execute(sql)
+        #     db.commit()
 
-            enviar(telefonoCliente,chatgpt_response,Config.WHATSAPP.TOKEN,Config.WHATSAPP.ID_NUMERO_TELEFONO)
+        #     # CERRAMOS EL CURSOR Y LA CONEXION CON LA BASE DE DATOS
+        #     cursor.close()
+        #     db.close()
 
-        #RETORNAMOS EL STATUS EN UN JSON
-        return jsonify({"status": "success"}, 200)
+        #     enviar(telefonoCliente,response,Config.WHATSAPP.TOKEN,Config.WHATSAPP.ID_NUMERO_TELEFONO)
+
+        # #RETORNAMOS EL STATUS EN UN JSON
+        # return jsonify({"status": "success"}, 200)
+
+procesarMensaje('donde quedan las flores?', '23123123132', 123123, '5491158487444')
