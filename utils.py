@@ -2,8 +2,7 @@
 from flask import jsonify
 import mysql.connector
 from config import Config
-from db_utils import collectTrainData
-import time
+from completion import chatgpt_completion
 
 from heyoo import WhatsApp
 def enviar(telefonoRecibe,respuesta,token,idNumeroTelefono):
@@ -27,7 +26,7 @@ def procesarMensaje(mensaje,idWA,timestamp,telefonoCliente):
         cursor = db.cursor()
         cursor.execute("SELECT count(id) AS cantidad FROM registro_nuevos WHERE id_wa='" + idWA + "';")
         # IMPORTAMOS FUNCION PARA CONECTARSE A CHAT GPT
-        response = collectTrainData(mensaje, telefonoCliente)
+        response = chatgpt_completion(mensaje, telefonoCliente)
 
         cantidad,=cursor.fetchone()
         cantidad=str(cantidad)
@@ -47,5 +46,5 @@ def procesarMensaje(mensaje,idWA,timestamp,telefonoCliente):
 
             enviar(telefonoCliente,response,Config.WHATSAPP.TOKEN,Config.WHATSAPP.ID_NUMERO_TELEFONO)
 
-        #RETORNAMOS EL STATUS EN UN JSON
+        # RETORNAMOS EL STATUS EN UN JSON
         return jsonify({"status": "success"}, 200)
