@@ -1,44 +1,62 @@
 import React from 'react'
+import img from '../../assets/images/home-carrousel.jpg'
 
 function Home() {
     return (
-        <div className='col-md-4 m-3'>
-            <div className="card mb-3">
-                <h3 className="card-header">Card header</h3>
-                <div className="card-body">
-                    <h5 className="card-title">Special title treatment</h5>
-                    <h6 className="card-subtitle text-muted">Support card subtitle</h6>
+        <>
+            {/* pantallas pequeñas */}
+            <div class="d-block d-sm-none">
+                <div className="container-fluid p-5 bg-secondary shadow-lg" style={{ "height": "70vh" }}>
+                    <div className="flex-column d-flex align-items-center justify-content-center h-100">
+                        <div className="col-sm-6 col-md-5 custom-column">
+                            <h1>Misma inversión, mejores resultados</h1>
+                            <p>Ahorra tiempo y genera <mark>más ventas automatizando conversaciones</mark> en los canales <mark>Web</mark>, <mark>WhatsApp</mark> y <mark>Redes Sociales</mark> con AI Bot.
+
+                                Entiende, perfila, califica y gestiona cada contacto para bajar tu costo por ventas y atención, mejorando el retorno de tu inversión publicitaria (ROAS).</p>
+                            <button className="btn btn-outline-success w-100">Registrarme</button>
+                        </div>
+                        <div className="col-sm-4 col-md-5 custom-column mt-3">
+                            <img src={img} className="img-fluid rounded" alt="Imagen" />
+                        </div>
+                    </div>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" className="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style={{"font-size":"1.125rem", "text-anchor":"middle"}}>
-                    <rect width="100%" height="100%" fill="#868e96"></rect>
-                    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-                </svg>
-                <div className="card-body">
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <ul className="list-group list-group-flush">
-                    <li className="list-group-item">Cras justo odio</li>
-                    <li className="list-group-item">Dapibus ac facilisis in</li>
-                    <li className="list-group-item">Vestibulum at eros</li>
-                </ul>
-                <div className="card-body">
-                    <a href="#" className="card-link">Card link</a>
-                    <a href="#" className="card-link">Another link</a>
-                </div>
-                <div className="card-footer text-muted">
-                    2 days ago
-                </div>
-            </div>
-            <div className="card">
-                <div className="card-body">
-                    <h4 className="card-title">Card title</h4>
-                    <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" className="card-link">Card link</a>
-                    <a href="#" className="card-link">Another link</a>
+                <div className="container-fluid p-5" style={{ "backgroundColor": "#383475" }}>
+                    <div className="row d-flex align-items-center justify-content-center text-white" >
+                        <div className="col-md-6 custom-column me-5 text-center" >
+                            <h1 className='text-white'>Inteligencia Artificial</h1>
+                            <p>Todos los beneficios que ya conoces del chatbot potenciados con IA para que puedas lograr mejores conversaciones en la precompra y en la poscompra.</p>
+                            <button className="btn btn-outline-primary">Conoce más</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+            {/* pantallas grandes */}
+            <div class="d-none d-sm-block">
+                <div className="container-fluid p-5 bg-secondary shadow-lg" style={{ "height": "70vh" }}>
+                    <div className="row d-flex align-items-center justify-content-center h-100">
+                        <div className="col-sm-6 col-md-5 custom-column me-5">
+                            <h1>Misma inversión, mejores resultados</h1>
+                            <p>Ahorra tiempo y genera más ventas automatizando conversaciones en los canales Web, WhatsApp y Redes Sociales con AI Bot.
+
+                                Entiende, perfila, califica y gestiona cada contacto para bajar tu costo por ventas y atención, mejorando el retorno de tu inversión publicitaria (ROAS).</p>
+                            <button className="btn btn-outline-success">Registrarme</button>
+                        </div>
+                        <div className="col-sm-4 col-md-5 custom-column">
+                            <img src={img} className="img-fluid rounded" alt="Imagen" />
+                        </div>
+                    </div>
+                </div>
+                <div className="container-fluid p-5" style={{ "backgroundColor": "#383475" }}>
+                    <div className="row d-flex align-items-center justify-content-center text-white" >
+                        <div className="col-md-6 custom-column me-5 text-center" >
+                            <h1 className='text-white'>Inteligencia Artificial</h1>
+                            <p>Todos los beneficios que ya conoces del chatbot potenciados con IA para que puedas lograr mejores conversaciones en la precompra y en la poscompra.</p>
+                            <button className="btn btn-outline-primary">Conoce más</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
 

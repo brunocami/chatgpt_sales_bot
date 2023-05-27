@@ -3,9 +3,9 @@ import React from 'react'
 const Terms = () => {
     return (
         <div className='m-3'>
-            <div className="card text-white bg-primary mb-3 rounded shadow" style={{ "max-width": "20rem;" }}>
-                <div className="card-header text-center">Términos y Condiciones</div>
-                <div className="card-body bg-secondary text-black">
+            <div className="card bg-secondary mb-3" style={{ "max-width": "20rem;" }}>
+                <div className="card-header text-white bg-dark text-center">Términos y Condiciones</div>
+                <div className="card-body">
                     <h4 className="card-title text-center">POLÍTICA DE PRIVACIDAD</h4>
                     <p className="card-text ">Esta Política de privacidad describe cómo [Nombre de la empresa] recopila, utiliza, almacena y protege la información personal que usted proporciona al visitar nuestro sitio web [URL del sitio web]. Al utilizar este sitio web, usted acepta los términos y condiciones de esta Política de privacidad.</p>
 
