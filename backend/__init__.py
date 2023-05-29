@@ -32,8 +32,6 @@ def webhook_whatsapp():
     #SI HAY UN MENSAJE
 
     procesarMensaje(mensaje,idWA,timestamp,telefonoCliente)
-    print(data)
-
 
 #INICIAMOS FLASK
 if __name__ == "__main__":

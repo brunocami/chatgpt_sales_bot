@@ -7,3 +7,7 @@ En BotiAI, entendemos la importancia de optimizar la interacción con tus client
 Nuestros chatbots son *altamente personalizables* y se adaptan a las necesidades específicas de tu negocio. Podemos integrarlos en tu *sitio web*, *aplicación móvil*, *redes sociales* y plataformas de mensajería populares para garantizar una experiencia fluida y coherente en todos los canales.
 
 ¿Te gustaria saber mas de nosotros?
+
+
+
+ALTER TABLE registro_nuevos AUTO_INCREMENT = 1;
