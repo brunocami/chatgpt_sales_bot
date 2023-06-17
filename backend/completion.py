@@ -30,7 +30,7 @@ def chatgpt_completion(mensaje, telefonoCliente):
     db.close()
 
     # TODO ES SE VA A OTRO ARCHIVO
-    palabras_clave_lanchas = ['productos', 'precio', 'disponibilidad', 'categorias']
+    palabras_clave_lanchas = ['productos', 'precio', 'disponibilidad', 'categorias', 'lanchas']
     # Convertir el mensaje a minúsculas para una comparación sin distinción de mayúsculas
     mensaje = mensaje.lower()
     palabras_clave_info = ['restaurantes', 'salidas', 'paseos', 'recorrer']
@@ -44,7 +44,7 @@ def chatgpt_completion(mensaje, telefonoCliente):
     else:
         message_objects = []
         # Mensajes de introducción para el chat
-        message_objects.append({"role": "system", "content": "Soy un chatbot de ventas de una empresa de alquiler de lanchas. Estoy aquí para ayudarte a elegir la mejor categoría."})
+        message_objects.append({"role": "system", "content": ""})
 
         for index, row in conversacion_df.iterrows():
             prompt = row['prompt']

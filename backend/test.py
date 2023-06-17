@@ -1,4 +1,3 @@
-import time
 from datetime import datetime, timedelta
 
 def is_message_old(timestamp):

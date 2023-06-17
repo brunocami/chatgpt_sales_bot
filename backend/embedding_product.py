@@ -52,7 +52,7 @@ def embedding_message(mensaje):
     message_objects.extend(products_list)
 
     # Mensajes de introducción para el chat
-    message_objects.append({"role": "system", "content": "Soy un chatbot de ventas de una empresa de alquiler de lanchas. si me llega una lista de productos se la paso al cliente"})
+    message_objects.append({"role": "system", "content": "Soy un chatbot de ventas de una empresa de alquiler de lanchas. si el cliente me pregunta por la lista de productos le muestro tres de los mas relevantes. por ejemplo si quiere ver los productos que tenemos le muestro uno de cada categoria y si me pide los productos de una categoria en especifico (alta por ejemplo) le paso tres productos de esa categoria. solo le paso los productos no le doy ninguna otra explicacion a menos que el me la pida."})
     message_objects.append({"role": "user", "content": mensaje})
 
 
@@ -60,7 +60,7 @@ def embedding_message(mensaje):
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=message_objects,
-        max_tokens=200,
+        max_tokens=500,
         n=1,
         stop=None,
         temperature=0.5

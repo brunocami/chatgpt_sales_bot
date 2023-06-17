@@ -2,6 +2,7 @@
 from flask import Flask, request
 from config import Config
 from utils import procesarMensaje
+from save_message_db import save_message_in_db
 
 app = Flask(__name__)
 app.config.from_object(Config.FLASK)
@@ -21,17 +22,29 @@ def webhook_whatsapp():
           return "Error de autentificacion."
     #RECIBIMOS TODOS LOS DATOS ENVIADO VIA JSON
     data=request.get_json()
-    #EXTRAEMOS EL NUMERO DE TELEFONO Y EL MANSAJE
-    telefonoCliente=data['entry'][0]['changes'][0]['value']['messages'][0]['from']
-    #EXTRAEMOS EL TELEFONO DEL CLIENTE
-    mensaje=data['entry'][0]['changes'][0]['value']['messages'][0]['text']['body']
-    #EXTRAEMOS EL ID DE WHATSAPP DEL ARRAY
-    idWA=data['entry'][0]['changes'][0]['value']['messages'][0]['id']
-    #EXTRAEMOS EL TIEMPO DE WHATSAPP DEL ARRAY
-    timestamp=data['entry'][0]['changes'][0]['value']['messages'][0]['timestamp']
-    #SI HAY UN MENSAJE
+    if data['entry'][0]['changes'][0]['value']['messages'][0]['type'] == "text":
+        #EXTRAEMOS EL NUMERO DE TELEFONO Y EL MANSAJE
+        telefonoCliente=data['entry'][0]['changes'][0]['value']['messages'][0]['from']
+        #EXTRAEMOS EL TELEFONO DEL CLIENTE
+        mensaje=data['entry'][0]['changes'][0]['value']['messages'][0]['text']['body']
+        #EXTRAEMOS EL ID DE WHATSAPP DEL ARRAY
+        idWA=data['entry'][0]['changes'][0]['value']['messages'][0]['id']
+        #EXTRAEMOS EL TIEMPO DE WHATSAPP DEL ARRAY
+        timestamp=data['entry'][0]['changes'][0]['value']['messages'][0]['timestamp']
+        #SI HAY UN MENSAJE
+        procesarMensaje(mensaje,idWA,timestamp,telefonoCliente)
+    else: 
+        messageType=data['entry'][0]['changes'][0]['value']['messages'][0]['type']
+        #EXTRAEMOS EL NUMERO DE TELEFONO Y EL MANSAJE
+        telefonoCliente=data['entry'][0]['changes'][0]['value']['messages'][0]['from']
+        #EXTRAEMOS EL TELEFONO DEL CLIENTE
+        mensaje='por favor, enviar mensjaes de texto unicamente'
+        #EXTRAEMOS EL ID DE WHATSAPP DEL ARRAY
+        idWA=data['entry'][0]['changes'][0]['value']['messages'][0]['id']
+        #EXTRAEMOS EL TIEMPO DE WHATSAPP DEL ARRAY
+        timestamp=data['entry'][0]['changes'][0]['value']['messages'][0]['timestamp']
 
-    procesarMensaje(mensaje,idWA,timestamp,telefonoCliente)
+        save_message_in_db(mensaje,idWA,timestamp,telefonoCliente,messageType)
 
 #INICIAMOS FLASK
 if __name__ == "__main__":
